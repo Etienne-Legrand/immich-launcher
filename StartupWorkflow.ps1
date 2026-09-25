@@ -50,14 +50,14 @@
     }
 
     try {
-      if (-not (Test-Path $dockerPath)) {
-        throw "Docker CLI introuvable : $dockerPath"
+      if ([string]::IsNullOrWhiteSpace($dockerPath) -or -not (Test-Path -LiteralPath $dockerPath -PathType Leaf)) {
+        throw "Docker CLI introuvable. Installez Docker Desktop ou ajoutez docker.exe au PATH."
       }
 
       Send-Message "Status" "Vérification de Docker..."
       if (-not (Test-DockerReady)) {
-        if (-not (Test-Path $dockerDesktopPath)) {
-          throw "Docker Desktop introuvable : $dockerDesktopPath"
+        if ([string]::IsNullOrWhiteSpace($dockerDesktopPath) -or -not (Test-Path -LiteralPath $dockerDesktopPath -PathType Leaf)) {
+          throw "Docker Desktop introuvable. Démarrez Docker Desktop ou vérifiez son installation."
         }
 
         if ($null -eq (Get-Process "Docker Desktop" -ErrorAction SilentlyContinue)) {

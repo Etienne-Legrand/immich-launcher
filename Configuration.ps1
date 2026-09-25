@@ -19,17 +19,14 @@ $dockerPath = if ($null -ne $dockerCommand) {
 }
 else {
   Find-FirstExistingFile @(
-    (Join-Path $env:ProgramFiles "Docker\Docker\resources\bin\docker.exe"),
-    (Join-Path $env:LOCALAPPDATA "Docker\resources\bin\docker.exe"),
-    (Join-Path $env:LOCALAPPDATA "Programs\Docker\Docker\resources\bin\docker.exe")
+    (Join-Path $env:ProgramFiles "Docker\Docker\resources\bin\docker.exe"),         # Installation globale (Admin)
+    (Join-Path $env:LOCALAPPDATA "Programs\DockerDesktop\resources\bin\docker.exe") # Installation par utilisateur
   )
 }
 
 $dockerDesktopPath = Find-FirstExistingFile @(
-  (Join-Path $env:ProgramFiles "Docker\Docker\Docker Desktop.exe"),
-  (Join-Path $env:LOCALAPPDATA "Programs\Docker Desktop\Docker Desktop.exe"),
-  (Join-Path $env:LOCALAPPDATA "Programs\Docker\Docker Desktop.exe"),
-  (Join-Path $env:LOCALAPPDATA "Docker\Docker Desktop.exe")
+  (Join-Path $env:ProgramFiles "Docker\Docker\Docker Desktop.exe"),         # Installation globale (Admin)
+  (Join-Path $env:LOCALAPPDATA "Programs\DockerDesktop\Docker Desktop.exe") # Installation par utilisateur
 )
 
 [pscustomobject]@{
